@@ -78,8 +78,18 @@ namespace Wox.Plugin.SimpleClock.Views
             ResizeMode = ResizeMode.NoResize;
             Width = 300;
             Height = 150;
-            Left = Screen.PrimaryScreen.WorkingArea.Right - Width - 10;
-            Top = Screen.PrimaryScreen.WorkingArea.Bottom - Height - 10;
+
+            if (!ClockSettingsWrapper.Settings.IsCenter)
+            {
+                Left = Screen.PrimaryScreen.WorkingArea.Right - Width - 10;
+                Top = Screen.PrimaryScreen.WorkingArea.Bottom - Height - 10;
+            }
+            else
+            {
+                Left = (Screen.PrimaryScreen.WorkingArea.Right - Width)/2;
+                Top = (Screen.PrimaryScreen.WorkingArea.Bottom - Height)/2;
+            }
+            
             KeyDown += AlarmNotificationWindow_KeyDown;
             Background = new SolidColorBrush(Colors.Transparent);
             AudioPlayer player = new AudioPlayer(trackPath);

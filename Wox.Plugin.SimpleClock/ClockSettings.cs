@@ -13,6 +13,9 @@ namespace Wox.Plugin.SimpleClock
         public string AlarmTrackPath { get; set; }
         
         [JsonProperty]
+        public bool IsCenter { get; set; }
+
+        [JsonProperty]
         public List<StoredAlarm> Alarms = new List<StoredAlarm>();
 
         public class StoredAlarm

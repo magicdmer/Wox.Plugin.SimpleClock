@@ -36,6 +36,14 @@ namespace Wox.Plugin.SimpleClock.Views
                 AlarmTrackProperty = System.IO.Path.Combine(pluginDirectory, "Sounds\\beepbeep.mp3");
             }
             tbxAudioFilePath.Text = AlarmTrackProperty;
+            if (ClockSettingsWrapper.Settings.IsCenter)
+            {
+                centerRadioButton.IsChecked = true;
+            }
+            else
+            {
+                bottomRadioButton.IsChecked = true;
+            }
         }
 
         public string AlarmTrackProperty
@@ -53,7 +61,6 @@ namespace Wox.Plugin.SimpleClock.Views
                     return;
                 }
                 ClockSettingsWrapper.Settings.AlarmTrackPath = value;
-                ClockSettingsWrapper.Storage.Save();
             }
         } 
 
@@ -68,14 +75,15 @@ namespace Wox.Plugin.SimpleClock.Views
             if (res == System.Windows.Forms.DialogResult.OK)
             {
                 tbxAudioFilePath.Text = ofd.FileName;
-                AlarmTrackProperty = tbxAudioFilePath.Text;
             }
             
         }
 
-        private void tbxAudioFilePath_LostFocus(object sender, RoutedEventArgs e)
+        private void applyButton_Click(object sender, RoutedEventArgs e)
         {
             AlarmTrackProperty = tbxAudioFilePath.Text;
+            ClockSettingsWrapper.Settings.IsCenter = centerRadioButton.IsChecked.GetValueOrDefault();
+            ClockSettingsWrapper.Storage.Save();
         }
     }
 }
